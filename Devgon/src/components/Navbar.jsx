@@ -22,13 +22,14 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50 w-full">
       <div className="flex items-center justify-between w-full py-3 px-2 md:px-4 relative">
+        {/* Logo */}
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
             <img src="/assets/logo.png" alt="Logo" className="h-10 w-auto" />
           </Link>
         </div>
 
-        {/* CENTER NAV */}
+        {/* Center Nav Links (Desktop) */}
         <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex space-x-8 text-lg text-gray-800 font-medium">
           {!isAdmin ? (
             <>
@@ -46,7 +47,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* RIGHT SECTION */}
+        {/* Right User Section */}
         <div className="flex items-center relative">
           {user ? (
             <div className="relative">
@@ -55,18 +56,40 @@ const Navbar = () => {
               </button>
               {dropdown && (
                 <div className="absolute right-0 mt-2 w-44 bg-white border rounded-lg shadow-lg z-50">
-                  <div className="px-4 py-2 text-sm text-gray-700 border-b">{userData?.name || user.email}</div>
+                  <div className="px-4 py-2 text-sm text-gray-700 border-b">
+                    {userData?.name || user.email}
+                  </div>
                   {!isAdmin && (
-                    <Link to="/user-dashboard" className="block px-4 py-2 hover:bg-green-50" onClick={() => setDropdown(false)}>
-                      User Dashboard
-                    </Link>
+                    <>
+                      <Link
+                        to="/user-dashboard"
+                        className="block px-4 py-2 hover:bg-green-50"
+                        onClick={() => setDropdown(false)}
+                      >
+                        User Dashboard
+                      </Link>
+                      <Link
+                        to="/order-history"
+                        className="block px-4 py-2 hover:bg-green-50"
+                        onClick={() => setDropdown(false)}
+                      >
+                        Order History
+                      </Link>
+                    </>
                   )}
                   {isAdmin && (
-                    <Link to="/admin" className="block px-4 py-2 hover:bg-green-50" onClick={() => setDropdown(false)}>
+                    <Link
+                      to="/admin"
+                      className="block px-4 py-2 hover:bg-green-50"
+                      onClick={() => setDropdown(false)}
+                    >
                       Admin Dashboard
                     </Link>
                   )}
-                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-green-50">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 hover:bg-green-50"
+                  >
                     Logout
                   </button>
                 </div>
@@ -79,7 +102,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* MOBILE MENU ICON */}
+        {/* Mobile Menu Toggle */}
         <div className="md:hidden flex items-center ml-2">
           <button onClick={() => setIsOpen(!isOpen)} className="text-gray-800">
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -87,7 +110,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* MOBILE DROPDOWN */}
+      {/* Mobile Menu Dropdown */}
       {isOpen && (
         <div className="md:hidden px-4 pt-2 pb-4 space-y-2 text-gray-800 bg-white shadow">
           {!isAdmin ? (
@@ -106,7 +129,12 @@ const Navbar = () => {
           )}
           {user ? (
             <>
-              {!isAdmin && <Link to="/user-dashboard" onClick={() => setIsOpen(false)}>User Dashboard</Link>}
+              {!isAdmin && (
+                <>
+                  <Link to="/user-dashboard" onClick={() => setIsOpen(false)}>User Dashboard</Link>
+                  <Link to="/order-history" onClick={() => setIsOpen(false)}>Order History</Link>
+                </>
+              )}
               {isAdmin && <Link to="/admin" onClick={() => setIsOpen(false)}>Admin Dashboard</Link>}
               <button onClick={handleLogout} className="w-full text-left">Logout</button>
             </>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../Firebase/config";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -42,6 +42,19 @@ const ManageUsers = () => {
 
   const getUserOrders = (userId) =>
     orders.filter((order) => order.userId === userId);
+
+  const formatDate = (timestamp) => {
+    if (!timestamp) return "N/A";
+    const date =
+      timestamp?.seconds !== undefined
+        ? new Date(timestamp.seconds * 1000)
+        : new Date(timestamp);
+    return date.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  };
 
   return (
     <div className="p-6">
@@ -95,20 +108,14 @@ const ManageUsers = () => {
                         {userOrders.length === 0 ? (
                           <p className="text-gray-500">No orders found.</p>
                         ) : (
-                          <ul className="list-disc ml-6 space-y-1">
+                          <ul className="list-disc ml-6 space-y-1 text-sm">
                             {userOrders.map((order) => (
                               <li key={order.id}>
-                                <span className="font-medium">
-                                  Order ID:
-                                </span>{" "}
+                                <span className="font-medium">Order ID:</span>{" "}
                                 {order.id} |{" "}
-                                <span className="font-medium">
-                                  Date:
-                                </span>{" "}
-                                {order.date || "N/A"} |{" "}
-                                <span className="font-medium">
-                                  Status:
-                                </span>{" "}
+                                <span className="font-medium">Date:</span>{" "}
+                                {formatDate(order.createdAt)} |{" "}
+                                <span className="font-medium">Status:</span>{" "}
                                 {order.status || "N/A"}
                               </li>
                             ))}
