@@ -2,8 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getStorage } from "firebase/storage"; // For Firebase Storage
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,12 +14,10 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// ✅ Initialize Auth & Firestore
 
-
-// ✅ Export Auth & Firestore
+// Export initialized services
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app); // ✅ For uploading files

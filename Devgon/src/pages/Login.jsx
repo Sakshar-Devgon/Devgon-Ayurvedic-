@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../Firebase/config"; // ✅ Correct import
+import { auth, db } from "../Firebase/config";
+import { getDoc, doc } from "firebase/firestore";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,10 +14,30 @@ const Login = () => {
     e.preventDefault();
     setError("");
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/"); // Redirect to home page after login
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+      console.log("Logged in UID:", uid);
+
+      // Fetch user data from Firestore
+      const docRef = doc(db, "users", uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        console.log("User role:", userData.role);
+
+        if (userData.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/user-dashboard");
+        }
+      } else {
+        console.warn("User document not found in Firestore.");
+        setError("User data not found. Contact support.");
+      }
     } catch (err) {
-      setError(err.message);
+      console.error("Login failed:", err);
+      setError("Invalid email or password.");
     }
   };
 
@@ -25,8 +46,12 @@ const Login = () => {
       <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-8 md:p-12 border border-green-100">
         <div className="flex flex-col items-center mb-6">
           <img src="/assets/logo.png" alt="Devgon Ayurvedic Logo" className="h-16 mb-2" />
-          <h2 className="text-2xl md:text-3xl font-bold text-green-800 mb-1 text-center">Login to Your Account</h2>
-          <p className="text-gray-600 text-center text-sm mb-2">Welcome back to Devgon Ayurvedic</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-green-800 mb-1 text-center">
+            Login to Your Account
+          </h2>
+          <p className="text-gray-600 text-center text-sm mb-2">
+            Welcome back to Devgon Ayurvedic
+          </p>
         </div>
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
@@ -59,9 +84,11 @@ const Login = () => {
             Login
           </button>
         </form>
-        <p className="text-sm text-center mt-4">
-          Don’t have an account?{' '}
-          <a href="/signup" className="text-green-700 font-semibold hover:underline">Sign up</a>
+        <p className="text-sm text-center mt-4">  
+          Don’t have an account?{" "}
+          <Link to="/signup" className="text-green-700 font-semibold hover:underline">
+            Sign up
+          </Link>
         </p>
       </div>
     </div>

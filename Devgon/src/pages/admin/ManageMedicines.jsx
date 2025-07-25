@@ -1,12 +1,11 @@
-// src/pages/admin/ManageMedicines.jsx
-
 import React from "react";
 
 const ManageMedicines = () => {
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Manage Medicines</h2>
-      {/* Your UI here */}
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <h1 className="text-3xl font-bold text-purple-700">
+        Manage Medicines - Coming Soon 🚧
+      </h1>
     </div>
   );
 };
