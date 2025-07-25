@@ -45,13 +45,15 @@ const Signup = () => {
         form.password
       );
 
-      // Save additional user data in Firestore
+      // Save additional user data in Firestore with default role and status
       await setDoc(doc(db, "users", userCredential.user.uid), {
         name: form.name,
         email: form.email,
         phone: form.phone,
         address: form.address,
-        createdAt: new Date(),
+        role: "user",           // ✅ default role
+        suspended: false,       // ✅ default status
+        createdAt: new Date()
       });
 
       navigate("/login"); // Redirect to login page after signup
