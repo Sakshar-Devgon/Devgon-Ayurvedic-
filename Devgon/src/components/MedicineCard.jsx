@@ -13,23 +13,31 @@ const MedicineCard = ({ id, name, description, price, imageUrl }) => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center bg-white rounded-xl shadow-lg border border-green-200 hover:shadow-2xl transition p-4 gap-4 min-h-[180px] relative group">
-      {imageUrl ? (
-        <img
-          src={imageUrl}
-          alt={name}
-          className="h-28 w-28 object-cover rounded-lg border flex-shrink-0 group-hover:scale-105 transition"
-        />
-      ) : (
-        <div className="h-28 w-28 flex items-center justify-center bg-green-50 rounded-lg text-gray-400 border flex-shrink-0">
-          No Image
-        </div>
-      )}
+    <div className="flex flex-col sm:flex-row items-center bg-white rounded-2xl shadow-lg border border-green-200 hover:shadow-2xl transition-all p-4 gap-4 min-h-[200px] relative group">
+      <div className="h-32 w-32 bg-white border rounded-xl overflow-hidden shadow-sm flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-all">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={name}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <span className="text-gray-400 text-sm">No Image</span>
+        )}
+      </div>
+
       <div className="flex-1 w-full flex flex-col justify-between h-full">
         <div>
-          <h4 className="text-lg font-bold text-green-900 mb-1 line-clamp-1">{name}</h4>
-          <p className="text-gray-600 text-sm mb-2 line-clamp-2">{description}</p>
+          <h4 className="text-lg font-bold text-green-900 mb-1 line-clamp-1">
+            {name}
+          </h4>
+
+          {/* Scrollable description area */}
+          <div className="text-gray-600 text-sm mb-2 max-h-16 overflow-y-auto pr-1 custom-scroll">
+            {description}
+          </div>
         </div>
+
         <div className="flex items-center justify-between mt-2">
           <span className="text-green-700 font-bold text-xl">₹{price}</span>
           <div className="flex items-center gap-2">
@@ -52,6 +60,7 @@ const MedicineCard = ({ id, name, description, price, imageUrl }) => {
             </button>
           </div>
         </div>
+
         {added && (
           <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-3 py-1 rounded shadow-lg animate-fade-in-out">
             Added to cart
