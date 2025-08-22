@@ -59,7 +59,7 @@ export default function Home() {
           Our range is certified, standardized, and enriched with purest herbal extracts and wisdom from the ages — rigorously tested for purity and consistency.
         </p>
         <p className="text-gray-700">
-          <span className="font-semibold">15+ Years of Experience:</span> Founded by Dr. Sunny Devgon in 2007, our clinic treats chronic diseases naturally, offering online consultations worldwide.
+          <span className="font-semibold">18+ Years of Experience:</span> Founded by Dr. Sunny Devgon in 2007, our clinic treats chronic diseases naturally, offering online consultations worldwide.
         </p>
       </section>
 
@@ -128,7 +128,7 @@ export default function Home() {
               With a legacy of Ayurvedic doctors in his family, Dr. Sunny aims to heal society using traditional wisdom through expert consultations — both online and in person.
             </p>
             <div className="mt-4">
-              <span className="inline-block bg-[#4CAF50] text-white px-4 py-2 rounded text-sm font-semibold mr-2">15+ Years Experience</span>
+              <span className="inline-block bg-[#4CAF50] text-white px-4 py-2 rounded text-sm font-semibold mr-2">18+ Years Experience</span>
               <span className="inline-block bg-yellow-200 text-yellow-900 px-4 py-2 rounded text-sm font-semibold">Rashtriya Gaurav Awardee</span>
             </div>
           </div>

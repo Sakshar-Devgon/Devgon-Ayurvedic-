@@ -29,7 +29,7 @@ const Login = () => {
         if (userData.role === "admin") {
           navigate("/admin");
         } else {
-          navigate("/user-dashboard");
+          navigate("/");
         }
       } else {
         console.warn("User document not found in Firestore.");

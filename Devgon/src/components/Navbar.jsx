@@ -112,7 +112,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden px-4 pt-2 pb-4 space-y-2 text-gray-800 bg-white shadow">
+        <div className="md:hidden flex flex-col items-start px-4 pt-2 pb-4 space-y-3 text-gray-800 bg-white shadow">
           {!isAdmin ? (
             <>
               <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>

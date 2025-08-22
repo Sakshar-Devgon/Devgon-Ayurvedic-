@@ -33,6 +33,12 @@ const AppRoutes = () => {
           <Route path="/admin/medicines" element={<ManageMedicines />} />
           <Route path="/admin/users" element={<ManageUsers />} />
           <Route path="/contact" element={<ContactUs />} />
+
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/manage-medicines" element={<ManageMedicines />} />
+          <Route path="/admin/manage-orders" element={<ManageOrders />} />
+          <Route path="/admin/manage-users" element={<ManageUsers />} />
+
         </Routes>
       </div>
       <Footer />
